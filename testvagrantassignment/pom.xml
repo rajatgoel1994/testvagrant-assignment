@@ -19,6 +19,8 @@
         <restassured.version>3.3.0</restassured.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
+        <extentreports.version>4.0.6</extentreports.version>
+        <extentreports-testng-adapter.version>1.0.3</extentreports-testng-adapter.version>
     </properties>
     <dependencies>
         <dependency>
@@ -79,6 +81,16 @@
             <artifactId>testng</artifactId>
             <version>6.14.3</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports-testng-adapter</artifactId>
+            <version>${extentreports-testng-adapter.version}</version>
         </dependency>
     </dependencies>
 
