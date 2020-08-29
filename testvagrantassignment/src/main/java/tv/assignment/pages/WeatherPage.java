@@ -1,5 +1,6 @@
 package tv.assignment.pages;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +11,7 @@ import tv.assignment.util.TestUtil;
 
 import java.util.List;
 
+@Slf4j
 public class WeatherPage extends Base {
 
     @FindBy(id = "searchBox")
@@ -42,7 +44,7 @@ public class WeatherPage extends Base {
         if (!city.isSelected()) {
             TestUtil.waitAndClickElement(city);
         } else {
-            System.out.println("City is already Selected");
+            log.info(cityName + " is already Selected");
         }
     }
 
@@ -64,8 +66,7 @@ public class WeatherPage extends Base {
                 DriverManager.getDriver().findElement(By.xpath(cityText)).getText().equals(city);
             }
         } catch (Exception e) {
-            System.out.println("City Title is not displayed");
-            e.printStackTrace();
+            log.error("City Title is not displayed", e);
             return false;
         }
         return true;
@@ -90,7 +91,7 @@ public class WeatherPage extends Base {
             if (!weatherInfoPopup.isDisplayed())
                 return false;
         } catch (Exception e) {
-            System.out.println("Weather Popup is not displayed");
+            log.error("Weather Popup is not displayed", e);
         }
         return true;
     }

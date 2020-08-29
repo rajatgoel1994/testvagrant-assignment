@@ -1,7 +1,6 @@
 package tv.assignment.util;
 
-import com.google.gson.Gson;
-import groovy.json.JsonOutput;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -15,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+@Slf4j
 public class TestUtil extends Base {
 
     public static Properties readFromConfig(String path) throws IOException {
@@ -30,6 +30,8 @@ public class TestUtil extends Base {
             waitForElement(element, ExpectedConditions.elementToBeClickable(element));
             element.click();
         } catch (Exception e) {
+            log.info("Click is not performed", e);
+            log.info("Trying to click using Javascript Executor");
             javascriptClick(element);
         }
 
