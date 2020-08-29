@@ -8,12 +8,20 @@ import tv.assignment.base.Base;
 import tv.assignment.driver.DriverManager;
 import tv.assignment.util.TestUtil;
 
+import java.util.List;
+
 public class WeatherPage extends Base {
 
     @FindBy(id = "searchBox")
     private WebElement citySearchBox;
     @FindBy(xpath = "//div[text()='Current weather conditions in your city.']")
     private WebElement currentWeatherConditionText;
+    @FindBy(css = ".leaflet-popup-content")
+    private WebElement weatherInfoPopup;
+    @FindBy(css = ".leaflet-popup-content span.heading")
+    private List<WebElement> weatherConditionsInsidePopup;
+    @FindBy(css = ".leaflet-popup-content span+span")
+    private WebElement cityTextInsidePopup;
 
     public WeatherPage() {
         PageFactory.initElements(DriverManager.getDriver(), this);
@@ -63,5 +71,41 @@ public class WeatherPage extends Base {
         return true;
     }
 
+    /*
+        Click city on map.
+     */
+    public void clickCityTextOnMap(String cityName) {
+        String cityText = "//div[@title='" + cityName + "']/div[2]";
+        TestUtil.waitForVisibiltyOfElement(DriverManager.getDriver().findElement(By.xpath(cityText)));
+        WebElement cityTextElement = DriverManager.getDriver().findElement(By.xpath(cityText));
+        TestUtil.waitAndClickElement(cityTextElement);
+    }
 
+    /*
+        Validate Popup is displayed after clicking city text on map.
+     */
+    public boolean IsWeatherPopupDisplayed() {
+        try {
+            TestUtil.waitForVisibiltyOfElement(weatherInfoPopup);
+            if (!weatherInfoPopup.isDisplayed())
+                return false;
+        } catch (Exception e) {
+            System.out.println("Weather Popup is not displayed");
+        }
+        return true;
+    }
+
+    /*
+        Validate city and weather conditions are displayed inside popup.
+        Return true if city contains the text(same which was selected on map) and
+        weather conditions size is equal to 5.
+     */
+    public boolean IsWeatherConditionDisplayedInsidePopup(String cityName) {
+        TestUtil.waitForVisibiltyOfElement(cityTextInsidePopup);
+        TestUtil.waitForVisibiltyOfElement(weatherConditionsInsidePopup.get(0));
+        if (weatherConditionsInsidePopup.size() == 5 && cityTextInsidePopup.getText().contains(cityName))
+            return true;
+        else
+            return false;
+    }
 }
