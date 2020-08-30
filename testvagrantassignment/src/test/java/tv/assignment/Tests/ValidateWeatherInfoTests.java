@@ -68,11 +68,13 @@ public class ValidateWeatherInfoTests extends Base {
         if (isConditionMatched && isWindSpeedMatched && isTempInDegreeMatched && isTempInFarhenheitMatched
                 && isHumidityMatched) {
             assertTrue(true);
+            log.info("Weather objects are equal");
         } else {
             try {
                 throw new MatcherException(isConditionMatched, isWindSpeedMatched, isTempInDegreeMatched,
                         isTempInFarhenheitMatched, isHumidityMatched);
             } catch (MatcherException m) {
+                log.error("Weather objects are not equal", m.getMessage());
                 fail(m.getMessage());
             }
         }
