@@ -1,5 +1,7 @@
 package tv.assignment.util;
 
+import com.google.gson.Gson;
+import groovy.json.JsonOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,6 +14,7 @@ import tv.assignment.driver.DriverManager;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 
 @Slf4j
@@ -63,4 +66,8 @@ public class TestUtil extends Base {
         element.sendKeys(message);
     }
 
+    public static <T> T convertJSONToObject(Map<String, String> object, Class<T> className) {
+        Gson gson = new Gson();
+        return gson.fromJson(JsonOutput.toJson(object), className);
+    }
 }
