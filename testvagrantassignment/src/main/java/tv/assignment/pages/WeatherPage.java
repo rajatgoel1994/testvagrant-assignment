@@ -7,9 +7,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import tv.assignment.base.Base;
 import tv.assignment.driver.DriverManager;
+import tv.assignment.model.WeatherConditions;
 import tv.assignment.util.TestUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class WeatherPage extends Base {
@@ -108,5 +111,27 @@ public class WeatherPage extends Base {
             return true;
         else
             return false;
+    }
+
+    /*
+       Store different weather Conditions from popup in map and then
+       Deserializes the specified Json into an object of the specified class.
+       Return an object of specified class.
+     */
+    public WeatherConditions storeWeatherConditionsFromPopup() {
+        Map<String, String> weather = new HashMap<String, String>();
+        for (WebElement weatherCondition : weatherConditionsInsidePopup) {
+            String[] arr = weatherCondition.getText().split(":");
+            String key = arr[0].trim();
+            String value = arr[1].trim();
+            if (key.contains("Condition")) {
+                weather.put(key.toLowerCase(), value);
+            } else if (key.contains("Humidity")) {
+                weather.put(key.toLowerCase(), value.replace("%", ""));
+            } else {
+                weather.put(key.toLowerCase().replaceAll(" ", "_"), value.split(" ")[0]);
+            }
+        }
+        return TestUtil.convertJSONToObject(weather, WeatherConditions.class);
     }
 }
