@@ -1,4 +1,4 @@
-Weather Comparison Test Automation Framework
+**Weather Comparison Test Automation Framework**
 
 **This project delivers to you a complete lean test architecture for your web using Page Object Design Pattern with best frameworks and practices. It also provides functionality to handle API calls.**
 
@@ -13,8 +13,9 @@ This project using the following languages and frameworks:
 * **Slf4j** as the logging manage strategy
 * **WebDriverManager** as the Selenium binaries management
 * **Lombok** to minimize the boilerplate in the Java code
+* **RestAssured** as the library to maintain tests for Restful APIs
 
-#### Local execution
+### Local execution
 This execution type uses **WebDriverManager** class to instantiate the web browsers.
 
 The class **LocalDriverManager** create a browser instance from the value placed on the `browser` property on the `config.properties` file.
