@@ -1,4 +1,4 @@
-**Weather Comparison Test Automation Framework Using Selenium**
+**Weather Comparison Test Automation Framework**
 
 **This project delivers to you a complete lean test architecture for your web using Page Object Design Pattern with best frameworks and practices. It also provides functionality to handle API calls.**
 
